@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complainer 😤</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0d0d url('https://i.pinimg.com/736x/44/c1/65/44c165aa8a0ec75a6ff4a4f609fd6b53.jpg') repeat;
+      background-size: 200px;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* Headings */
+    h1 {
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 0 0 10px #ff00de, 0 0 20px #ff00de, 0 0 30px #ff00de;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ff00de, 0 0 20px #ff00de, 0 0 30px #ff00de;
+      }
+      to {
+        text-shadow: 0 0 20px #00e6ff, 0 0 40px #00e6ff, 0 0 60px #00e6ff;
+      }
+    }
+
+    /* Landing page */
+    #landing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    #landing h1 {
+      font-size: 4rem;
+      margin-bottom: 25px;
+    }
+    #landing p {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+    }
+    /* Updated Get Started Button */
+    #get-started {
+      font-weight: 700; /* bold */
+      font-size: 1.2rem;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white; /* changed to white for contrast */
+      background: #ff1744; /* solid red background */
+      text-shadow:
+        0 0 5px #ff1744,
+        0 0 10px #ff1744,
+        0 0 20px #ff1744,
+        0 0 40px #ff1744;
+      animation: pulseGlow 2s infinite alternate;
+      transition: transform 0.2s ease;
+    }
+    #get-started:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    @keyframes pulseGlow {
+      from {
+        text-shadow:
+          0 0 5px #ff1744,
+          0 0 10px #ff1744,
+          0 0 20px #ff1744,
+          0 0 40px #ff1744;
+      }
+      to {
+        text-shadow:
+          0 0 10px #ff5252,
+          0 0 20px #ff5252,
+          0 0 40px #ff5252,
+          0 0 80px #ff5252;
+      }
+    }
+
+    /* Main App */
+    #main-app {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+    #complaint {
+      width: 60%;
+      height: 100px;
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+      margin-top: 20px;
+    }
+    .btn-row button {
+      flex: 1;
+      margin: 0 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff00de, #00e6ff);
+      color: white;
+      box-shadow: 0 0 10px #ff00de;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    #response {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: #00e6ff;
+      text-shadow: 0 0 5px #00e6ff;
+      min-height: 1.5em;
+    }
+
+    /* Footer & About button */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #fff;
+      text-shadow: 0 0 5px #ff00de;
+    }
+    #about-btn {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      padding: 8px 15px;
+      background: linear-gradient(45deg, #ff00de, #00e6ff);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-size: 0.9rem;
+      box-shadow: 0 0 8px #ff00de;
+    }
+
+    /* About Modal */
+    #about-modal {
+      display: none;
+      position: fixed;
+      bottom: 60px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 0 10px #ff00de;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    #about-modal.show {
+      display: block;
+    }
+
+    /* Emoji rain */
+    .emoji-wrapper {
+      position: fixed;
+      top: -50px;
+      animation: fall linear forwards;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .emoji {
+      display: inline-block;
+      opacity: 0.2;
+      animation: drift ease-in-out infinite;
+    }
+    @keyframes fall {
+      0% {
+        top: -50px;
+        opacity: var(--opacity-start);
+      }
+      100% {
+        top: 110vh;
+        opacity: var(--opacity-end);
+      }
+    }
+    @keyframes drift {
+      0% {
+        transform: translateX(0) scale(var(--scale));
+      }
+      50% {
+        transform: translateX(var(--drift)) scale(var(--scale));
+      }
+      100% {
+        transform: translateX(0) scale(var(--scale));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Landing Page -->
+  <div id="landing">
+    <h1>Welcome to Complainer 😤</h1>
+    <p>The ultimate place to vent your frustrations.</p>
+    <button id="get-started">OK, Get Started</button>
+  </div>
+
+  <!-- Main App -->
+  <div id="main-app">
+    <h1>Complainer 😤</h1>
+    <textarea id="complaint" placeholder="Drop your complaint here..."></textarea>
+    <div class="btn-row">
+      <button id="complain-btn">Complain 😤</button>
+      <button id="mic-btn">🎤 Speak</button>
+    </div>
+    <div id="response"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p id="footer-text">🔥 Gen-C Terms & Conditions (Totally Serious) 🔥</p>
+  </footer>
+
+  <!-- About Button + Modal -->
+  <button id="about-btn">About Complainer</button>
+  <div id="about-modal">
+    <p><strong>About Complainer 😤</strong></p>
+    <p>This is your drama-safe zone. Type or <strong>use speaking mode</strong> to complain — we’ll clap back in text & voice.</p>
+    <p><strong>Authors:</strong> Adithya & Flemin</p>
+    <p>Special thanks to our teacher for guiding the chaos.</p>
+  </div>
+
+  <!-- Funny Sound -->
+  <audio id="about-sound" src="https://www.myinstants.com/media/sounds/ohhh-my-god.mp3" preload="auto"></audio>
+
+  <script>
+    // Emoji rain
+    const emojis = [
+      "😂", "😤", "🔥", "😭", "🤯", "🙄", "😎", "💀", "🤬", "😱", "🥶", "🥵", "🤡", "👻", "🙈",
+    ];
+    function createEmoji() {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("emoji-wrapper");
+      wrapper.style.left = Math.random() * 100 + "vw";
+
+      const emoji = document.createElement("div");
+      emoji.classList.add("emoji");
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const scale = Math.random() * 0.8 + 0.4;
+      const fallTime = Math.random() * 5 + 6;
+      const driftAmount = Math.random() * 50 - 25;
+
+      emoji.style.setProperty("--scale", scale);
+      emoji.style.setProperty("--drift", driftAmount + "px");
+      emoji.style.setProperty("--opacity-start", Math.random() * 0.3 + 0.1);
+      emoji.style.setProperty("--opacity-end", Math.random() * 0.3 + 0.1);
+      emoji.style.fontSize = Math.random() * 20 + 20 + "px";
+
+      wrapper.style.animationDuration = fallTime + "s";
+      emoji.style.animationDuration = Math.random() * 4 + 3 + "s";
+
+      wrapper.appendChild(emoji);
+      document.body.appendChild(wrapper);
+
+      setTimeout(() => wrapper.remove(), fallTime * 1000);
+    }
+    setInterval(createEmoji, 500);
+
+    // Footer text rotation
+    const footerMessages = [
+      "🔥 Gen-C Terms & Conditions (Totally Serious) 🔥",
+      "No refunds, only drama.",
+      "Complaints processed faster if you cry.",
+      "We accept emotional damage as payment.",
+      "If you're not mad, you're not trying.",
+    ];
+    let footerIndex = 0;
+    setInterval(() => {
+      footerIndex = (footerIndex + 1) % footerMessages.length;
+      document.getElementById("footer-text").textContent = footerMessages[footerIndex];
+    }, 4000);
+
+    // Smooth transition
+    document.getElementById("get-started").addEventListener("click", () => {
+      const landing = document.getElementById("landing");
+      landing.style.opacity = "0";
+      landing.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        landing.style.display = "none";
+        document.getElementById("main-app").style.display = "flex";
+      }, 1000);
+    });
+
+    // Typewriter effect
+    function typeWriterEffect(element, text, speed = 40) {
+      element.textContent = "";
+      let i = 0;
+      function typing() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    // Voice & Mic
+    const replies = [
+      "Oh no, not again!",
+      "You deserve better.",
+      "That's actually tragic.",
+      "Unbelievable!",
+      "You need a refund and therapy.",
+      "Justice for you!",
+      "Your pain is valid. And iconic.",
+    ];
+    const complainBtn = document.getElementById("complain-btn");
+    const complaintInput = document.getElementById("complaint");
+    const micBtn = document.getElementById("mic-btn");
+    const responseBox = document.getElementById("response");
+    let availableVoices = [];
+    speechSynthesis.onvoiceschanged = () => {
+      availableVoices = speechSynthesis.getVoices();
+    };
+
+    function handleComplaint(text) {
+      if (!text) {
+        alert("Type or say something first!");
+        return;
+      }
+      const randomReply = replies[Math.floor(Math.random() * replies.length)];
+      typeWriterEffect(responseBox, randomReply);
+      const utterThis = new SpeechSynthesisUtterance(randomReply);
+      if (availableVoices.length > 0) {
+        const selectedVoice =
+          availableVoices.find((v) => v.lang === "en-IN") ||
+          availableVoices.find((v) => v.lang === "en-US") ||
+          availableVoices[0];
+        utterThis.voice = selectedVoice;
+      }
+      speechSynthesis.speak(utterThis);
+    }
+
+    complainBtn.addEventListener("click", () => {
+      handleComplaint(complaintInput.value.trim());
+    });
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-IN";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      micBtn.addEventListener("click", () => {
+        recognition.start();
+      });
+      recognition.addEventListener("result", (event) => {
+        const spokenText = event.results[0][0].transcript;
+        complaintInput.value = spokenText;
+        handleComplaint(spokenText);
+      });
+      recognition.addEventListener("error", (event) => {
+        alert("Mic error: " + event.error);
+      });
+    } else {
+      micBtn.disabled = true;
+      micBtn.textContent = "Mic Not Supported";
+    }
+
+    // About popup
+    const aboutBtn = document.getElementById("about-btn");
+    const aboutModal = document.getElementById("about-modal");
+    aboutBtn.addEventListener("click", () => {
+      const sound = document.getElementById("about-sound");
+      sound.currentTime = 0;
+      sound.play();
+      aboutModal.classList.toggle("show");
+    });
+  </script>
+</body>
+</html>
