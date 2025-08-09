@@ -24,11 +24,9 @@ For Software: VS CODE
 ![image alt](https://github.com/FLEMIN0/COMPLAINERR/blob/e868a81a6b8cc023e1008d8a493c2e9722698061/gfgfg.PNG)
 
 
-[Add any extra demo materials/links]
-
 ## Team Contributions
-- [Name 1]: [adithya]
-- [Name 2]: [flemin]
+- Adithya
+- Flemin
 - made with ❤️ at TinkerHub Useless Projects 
 
 ![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
