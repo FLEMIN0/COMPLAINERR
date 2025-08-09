@@ -21,7 +21,7 @@ For Software: VS CODE
 # Screenshots (Add at least 3)
 ![image alt](https://github.com/FLEMIN0/COMPLAINERR/blob/e868a81a6b8cc023e1008d8a493c2e9722698061/fg.PNG)
 
-![image alt] (https://github.com/FLEMIN0/COMPLAINERR/blob/e868a81a6b8cc023e1008d8a493c2e9722698061/gfgfg.PNG)
+![image alt](https://github.com/FLEMIN0/COMPLAINERR/blob/e868a81a6b8cc023e1008d8a493c2e9722698061/gfgfg.PNG)
 
 
 [Add any extra demo materials/links]
